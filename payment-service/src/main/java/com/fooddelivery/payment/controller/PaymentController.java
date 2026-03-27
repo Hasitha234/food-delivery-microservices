@@ -39,13 +39,13 @@ public class PaymentController {
 
     @GetMapping("/{paymentId}")
     @Operation(summary = "View payment details", description = "Get complete payment details by payment ID")
-    public PaymentResponse getPayment(@PathVariable String paymentId) {
+    public PaymentResponse getPayment(@PathVariable("paymentId") String paymentId) {
         return toResponse(paymentService.getPaymentById(paymentId));
     }
 
     @GetMapping("/status/{paymentId}")
     @Operation(summary = "Check payment status", description = "Get only the payment status information")
-    public PaymentStatusResponse getPaymentStatus(@PathVariable String paymentId) {
+    public PaymentStatusResponse getPaymentStatus(@PathVariable("paymentId") String paymentId) {
         Payment payment = paymentService.getPaymentById(paymentId);
         PaymentStatusResponse response = new PaymentStatusResponse();
         response.setPaymentId(payment.getPaymentId());
