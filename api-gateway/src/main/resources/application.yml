@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: payment-service-api
+          uri: http://localhost:8085
+          predicates:
+            - Path=/payment-service/api/payments/**
+          filters:
+            - RewritePath=/payment-service/(?<segment>.*), /$\{segment}
+        - id: payment-service-swagger-ui
+          uri: http://localhost:8085
+          predicates:
+            - Path=/payment-service/swagger-ui.html,/payment-service/swagger-ui/**,/payment-service/v3/api-docs/**
+          filters:
+            - RewritePath=/payment-service/(?<segment>.*), /$\{segment}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: payment-service
+        url: /payment-service/v3/api-docs
