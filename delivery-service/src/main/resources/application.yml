@@ -1,0 +1,10 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: delivery-service
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
